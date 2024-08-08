@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:primecabs/login_screen.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -20,14 +19,7 @@ class LoginPage extends StatelessWidget {
             Align(
               alignment: Alignment(0.0, 0.7), // Adjust this to move the button
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyPhone(),
-                      )
-                  );
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                   shape: RoundedRectangleBorder(
@@ -39,7 +31,7 @@ class LoginPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "Continue with PrimeCab",
+                      "Continue With PrimeCabs",
                       style: TextStyle(fontSize: 16,color: Colors.white),
                     ),
                     SizedBox(width: 8),
