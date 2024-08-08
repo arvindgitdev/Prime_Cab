@@ -85,4 +85,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'primecabs-eb17a.appspot.com',
     measurementId: 'G-XJ9MDWESD4',
   );
+
 }

@@ -31,7 +31,7 @@ class LoginPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "Continue PrimeCab",
+                      "Continue With PrimeCabs",
                       style: TextStyle(fontSize: 16,color: Colors.white),
                     ),
                     SizedBox(width: 8),
