@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "917975444880",
+    "project_id": "primecabs-eb17a",
+    "storage_bucket": "primecabs-eb17a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917975444880:android:c24c55ba0068ea42519715",
+        "android_client_info": {
+          "package_name": "com.example.primecabs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0-QOIOAm2KaPoncjEAvlZDmP8a4OkVjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
