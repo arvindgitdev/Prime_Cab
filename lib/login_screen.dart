@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primecabs/home_page.dart';
 
 class MyPhone extends StatefulWidget {
   const MyPhone({Key? key}) : super(key: key);
@@ -21,14 +22,14 @@ class _MyPhoneState extends State<MyPhone> {
     return Scaffold(
       body: Container(
         margin: EdgeInsets.all(60),
-        //alignment: Alignment.center,
+        alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Column(
             //mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Welcome to Primecab",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 20,
@@ -80,10 +81,18 @@ class _MyPhoneState extends State<MyPhone> {
                 height: 45,
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        iconColor: Colors.grey.shade600,
+                        iconColor: Colors.black,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Booking(),
+                          )
+                      );
+
+                    },
                     child: Text("continue")),
               ),
               SizedBox(height: 15,),
@@ -92,9 +101,9 @@ class _MyPhoneState extends State<MyPhone> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('------------',style: TextStyle(color: Colors.black,fontSize: 30),),
+                    Text('-------',style: TextStyle(color: Colors.black,fontSize: 30),),
                     Text('or Login with',style: TextStyle(color: Colors.black),),
-                    Text('------------',style: TextStyle(color: Colors.black,fontSize: 30),),
+                    Text('-------',style: TextStyle(color: Colors.black,fontSize: 30),),
 
                   ],
                 ),
@@ -105,7 +114,7 @@ class _MyPhoneState extends State<MyPhone> {
                   height: 50,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: Colors.grey,
+                    color: Colors.black,
                     borderRadius: BorderRadius.circular(5)
                   ),
                   child: Icon(Icons.g_mobiledata,color: Colors.white,size: 40,),
@@ -115,7 +124,7 @@ class _MyPhoneState extends State<MyPhone> {
                     height: 50,
                     width: 100,
                     decoration: BoxDecoration(
-                        color: Colors.grey,
+                        color: Colors.black,
                         borderRadius: BorderRadius.circular(5)
                     ),
                     child: Icon(Icons.apple,color: Colors.white,size: 40,),
