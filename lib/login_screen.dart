@@ -95,6 +95,7 @@ class _MyPhoneState extends State<MyPhone> {
                     Text('------------',style: TextStyle(color: Colors.black,fontSize: 30),),
                     Text('or Login with',style: TextStyle(color: Colors.black),),
                     Text('------------',style: TextStyle(color: Colors.black,fontSize: 30),),
+
                   ],
                 ),
               ),
