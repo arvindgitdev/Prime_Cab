@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primecabs/driver_login.dart';
 import 'package:primecabs/login_screen.dart';
 
 class LoginPage extends StatelessWidget {
@@ -24,7 +25,7 @@ class LoginPage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MyPhone(),
+                        builder: (context) => RegScreen(),
                       )
                   );
 
