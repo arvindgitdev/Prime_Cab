@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:primecabs/driver_login.dart';
-import 'package:primecabs/login_screen.dart';
+import 'package:primecabs/Driver/driver_login.dart';
+import 'package:primecabs/Passengers/login_screen.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -15,20 +15,13 @@ class LoginPage extends StatelessWidget {
             Center(
               child: Image.asset(
                 "assets/images/taxi-booking.png",
-
               ),
             ),
             Align(
               alignment: Alignment(0.0, 0.7), // Adjust this to move the button
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RegScreen(),
-                      )
-                  );
-
+                  _showUserTypeDialog(context);
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
@@ -42,10 +35,10 @@ class LoginPage extends StatelessWidget {
                   children: [
                     Text(
                       "Continue With PrimeCabs",
-                      style: TextStyle(fontSize: 16,color: Colors.white),
+                      style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     SizedBox(width: 8),
-                    Icon(Icons.arrow_forward,color: Colors.white,),
+                    Icon(Icons.arrow_forward, color: Colors.white),
                   ],
                 ),
               ),
@@ -53,6 +46,54 @@ class LoginPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showUserTypeDialog(BuildContext context) {
+    String? _selectedUserType;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Select User Type"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RadioListTile<String>(
+                title: Text("Driver"),
+                value: "Driver",
+                groupValue: _selectedUserType,
+                onChanged: (String? value) {
+                  _selectedUserType = value;
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RegScreen(),
+                    ),
+                  );
+                },
+              ),
+              RadioListTile<String>(
+                title: Text("Passenger"),
+                value: "Passenger",
+                groupValue: _selectedUserType,
+                onChanged: (String? value) {
+                  _selectedUserType = value;
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyPhone(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
