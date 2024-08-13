@@ -34,7 +34,7 @@ class LoginPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "Continue With PrimeCabs",
+                      "Continue With PrimeServices",
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     SizedBox(width: 8),
@@ -76,8 +76,8 @@ class LoginPage extends StatelessWidget {
                 },
               ),
               RadioListTile<String>(
-                title: Text("Passenger"),
-                value: "Passenger",
+                title: Text("Consumer"),
+                value: "Consumer",
                 groupValue: _selectedUserType,
                 onChanged: (String? value) {
                   _selectedUserType = value;
@@ -88,6 +88,21 @@ class LoginPage extends StatelessWidget {
                       builder: (context) => MyPhone(),
                     ),
                   );
+                },
+              ),
+              RadioListTile<String>(
+                title: Text("Food Vendor"),
+                value: "Food Vendor",
+                groupValue: _selectedUserType,
+                onChanged: (String? value) {
+                  _selectedUserType = value;
+                  Navigator.pop(context);
+                 /* Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyPhone(),
+                    ),
+                  );*/
                 },
               ),
             ],

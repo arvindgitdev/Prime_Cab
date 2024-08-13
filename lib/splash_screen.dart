@@ -53,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen>
         child: ScaleTransition(
           scale: _animation,
           child: Text(
-            'PrimeCabs',
+            'PrimeServices',
             style: TextStyle(
               fontSize: 48.0,
               fontWeight: FontWeight.bold,
