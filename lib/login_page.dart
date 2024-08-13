@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:primecabs/Consumer/login_screen.dart';
 import 'package:primecabs/Driver/driver_login.dart';
-import 'package:primecabs/Passengers/login_screen.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

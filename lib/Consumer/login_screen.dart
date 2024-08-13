@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:primecabs/Passengers/home_page.dart';
+import 'package:primecabs/Consumer/home_page.dart';
 
 
 class MyPhone extends StatefulWidget {
@@ -29,7 +29,7 @@ class _MyPhoneState extends State<MyPhone> {
             //mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Welcome to Primecab",
+                "Welcome to PrimeServices",
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
               SizedBox(
@@ -102,13 +102,14 @@ class _MyPhoneState extends State<MyPhone> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('-------',style: TextStyle(color: Colors.black,fontSize: 30),),
+                    Text('-------',style: TextStyle(color: Colors.black,fontSize: 25),),
                     Text('or Login with',style: TextStyle(color: Colors.black),),
-                    Text('-------',style: TextStyle(color: Colors.black,fontSize: 30),),
+                    Text('-------',style: TextStyle(color: Colors.black,fontSize: 25),),
 
                   ],
                 ),
               ),
+              SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:[ Container(
@@ -116,7 +117,7 @@ class _MyPhoneState extends State<MyPhone> {
                   width: 100,
                   decoration: BoxDecoration(
                     color: Colors.black,
-                    borderRadius: BorderRadius.circular(5)
+                    borderRadius: BorderRadius.circular(18)
                   ),
                   child: Icon(Icons.g_mobiledata,color: Colors.white,size: 40,),
                 ),
@@ -126,7 +127,7 @@ class _MyPhoneState extends State<MyPhone> {
                     width: 100,
                     decoration: BoxDecoration(
                         color: Colors.black,
-                        borderRadius: BorderRadius.circular(5)
+                        borderRadius: BorderRadius.circular(18)
                     ),
                     child: Icon(Icons.apple,color: Colors.white,size: 40,),
 
