@@ -12,7 +12,20 @@
           "package_name": "com.example.primecabs"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "917975444880-dh7i988dciv3mfnq2pgpriro5d0jh72g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.primecabs",
+            "certificate_hash": "174318c815c7fe31c8b7833fe5153f8310030f8c"
+          }
+        },
+        {
+          "client_id": "917975444880-ljq1s78vud78mgrg7obkcun83i31i724.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD0-QOIOAm2KaPoncjEAvlZDmP8a4OkVjY"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917975444880-ljq1s78vud78mgrg7obkcun83i31i724.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "917975444880-q6ptpn961nsslua64hvqmnvvmn2vefg0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.primecabs"
+              }
+            }
+          ]
         }
       }
     }

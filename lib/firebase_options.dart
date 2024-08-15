@@ -64,6 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '917975444880',
     projectId: 'primecabs-eb17a',
     storageBucket: 'primecabs-eb17a.appspot.com',
+    androidClientId: '917975444880-dh7i988dciv3mfnq2pgpriro5d0jh72g.apps.googleusercontent.com',
+    iosClientId: '917975444880-q6ptpn961nsslua64hvqmnvvmn2vefg0.apps.googleusercontent.com',
     iosBundleId: 'com.example.primecabs',
   );
 
@@ -73,6 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '917975444880',
     projectId: 'primecabs-eb17a',
     storageBucket: 'primecabs-eb17a.appspot.com',
+    androidClientId: '917975444880-dh7i988dciv3mfnq2pgpriro5d0jh72g.apps.googleusercontent.com',
+    iosClientId: '917975444880-q6ptpn961nsslua64hvqmnvvmn2vefg0.apps.googleusercontent.com',
     iosBundleId: 'com.example.primecabs',
   );
 

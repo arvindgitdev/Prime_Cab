@@ -18,19 +18,19 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: Alignment(0.0, 0.7), // Adjust this to move the button
+              alignment: const Alignment(0.0, 0.7), // Adjust this to move the button
               child: ElevatedButton(
                 onPressed: () {
                   _showUserTypeDialog(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
                   backgroundColor: Colors.black,
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
@@ -50,52 +50,52 @@ class LoginPage extends StatelessWidget {
   }
 
   void _showUserTypeDialog(BuildContext context) {
-    String? _selectedUserType;
+    String? selectedUserType;
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Select User Type"),
+          title: const Text("Select User Type"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               RadioListTile<String>(
-                title: Text("Driver"),
+                title: const Text("Driver"),
                 value: "Driver",
-                groupValue: _selectedUserType,
+                groupValue: selectedUserType,
                 onChanged: (String? value) {
-                  _selectedUserType = value;
+                  selectedUserType = value;
                   Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => RegScreen(),
+                      builder: (context) => const RegScreen(),
                     ),
                   );
                 },
               ),
               RadioListTile<String>(
-                title: Text("Consumer"),
+                title: const Text("Consumer"),
                 value: "Consumer",
-                groupValue: _selectedUserType,
+                groupValue: selectedUserType,
                 onChanged: (String? value) {
-                  _selectedUserType = value;
+                  selectedUserType = value;
                   Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MyPhone(),
+                      builder: (context) => const MyPhone(),
                     ),
                   );
                 },
               ),
               RadioListTile<String>(
-                title: Text("Food Vendor"),
+                title: const Text("Food Vendor"),
                 value: "Food Vendor",
-                groupValue: _selectedUserType,
+                groupValue: selectedUserType,
                 onChanged: (String? value) {
-                  _selectedUserType = value;
+                  selectedUserType = value;
                   Navigator.pop(context);
                  /* Navigator.push(
                     context,

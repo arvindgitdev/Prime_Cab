@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
         actions: [
           TextButton(
             onPressed: () {
               // Handle save action
             },
-            child: Text(
+            child: const Text(
               'Save',
               style: TextStyle(
                 color: Colors.blue,
@@ -23,7 +25,7 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -43,19 +45,19 @@ class ProfilePage extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 60,
                       backgroundColor: Colors.grey[300],
-                      backgroundImage: AssetImage('assets/default_profile.jpg'),
+                      backgroundImage: const AssetImage('assets/default_profile.jpg'),
                     ),
                   ),
                   Positioned(
                     bottom: 0,
                     right: 0,
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.blue,
                       ),
                       child: IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.camera_alt,
                           color: Colors.white,
                         ),
@@ -68,46 +70,46 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextFormField(
               initialValue: 'Name',
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Name',
                 border: OutlineInputBorder(),
               ),
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
               // onChanged: (value) {}, // Handle username change
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextFormField(
               initialValue: 'Phone',
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'phone',
                 border: OutlineInputBorder(),
               ),
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
               // onChanged: (value) {}, // Handle name change
             ),
 
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextFormField(
               initialValue: 'Email',
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
               ),
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
               // onChanged: (value) {}, // Handle website change
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextFormField(
               initialValue: 'Car Detials',
               maxLines: 3,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Car Details',
                 border: OutlineInputBorder(),
               ),
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
               // onChanged: (value) {}, // Handle bio change
             ),
           ],

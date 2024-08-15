@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RegScreen extends StatelessWidget {
-  const RegScreen({Key? key}) : super(key: key);
+  const RegScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class RegScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Welcome to\nPrimecab',
+                      'Welcome to\nPrimeServices',
                       style: TextStyle(
                       fontSize: 38,
                       color: Colors.black,
