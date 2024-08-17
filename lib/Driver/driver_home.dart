@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:primecabs/Driver/accept_page.dart';
 import 'package:primecabs/Driver/ride_detail.dart';
 
@@ -12,45 +11,11 @@ class DriverHomePage extends StatefulWidget {
 
 class _DriverHomePageState extends State<DriverHomePage> {
   bool isAvailable = false;
-  int notificationCount = 0;
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {
     super.initState();
     _getAvailabilityStatus();
-    _initializeNotifications();
-    _listenForRideRequests();
-  }
-
-  void _initializeNotifications() {
-    final AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
-    final InitializationSettings initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
-    flutterLocalNotificationsPlugin.initialize(initializationSettings);
-  }
-
-  void _showNotification(String title, String body) async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'ride_channel_id',
-      'Ride Notifications',
-      channelDescription: 'Notifications for new ride requests',
-      importance: Importance.max,
-      priority: Priority.high,
-      showWhen: false,
-    );
-    const NotificationDetails platformChannelSpecifics = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-    );
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      title,
-      body,
-      platformChannelSpecifics,
-      payload: 'ride_notification',
-    );
   }
 
   void _getAvailabilityStatus() async {
@@ -63,7 +28,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
           .get();
 
       setState(() {
-        isAvailable = driverSnapshot['isAvailable'] ?? false;
+        isAvailable = driverSnapshot['isAvailable'] ?? false; // Provide default value if null
       });
     }
   }
@@ -79,30 +44,6 @@ class _DriverHomePageState extends State<DriverHomePage> {
     }
   }
 
-  void _listenForRideRequests() {
-    User? user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      FirebaseFirestore.instance
-          .collection('rides')
-          .where('driverId', isEqualTo: user.uid)
-          .where('status', isEqualTo: 'pending')
-          .snapshots()
-          .listen((snapshot) {
-        if (snapshot.docs.isNotEmpty) {
-          setState(() {
-            notificationCount = snapshot.docs.length;
-          });
-
-          _showNotification(
-            'New Ride Request',
-            'You have received a new ride request.',
-          );
-        }
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,42 +51,14 @@ class _DriverHomePageState extends State<DriverHomePage> {
         title: Text('Driver Home'),
         centerTitle: false,
         actions: [
-          Stack(
-            children: [
-              IconButton(
-                icon: Icon(Icons.notifications),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RideRequestsPage()),
-                  );
-                },
-              ),
-              if (notificationCount > 0)
-                Positioned(
-                  right: 11,
-                  top: 11,
-                  child: Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 24,
-                      minHeight: 24,
-                    ),
-                    child: Text(
-                      '$notificationCount',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-            ],
+          IconButton(
+            icon: Icon(Icons.notifications),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RideRequestsPage()), // Navigate to NotificationsPage
+              );
+            },
           ),
         ],
       ),
@@ -165,7 +78,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
           SizedBox(height: 20),
           Text(
             'Ride History',
-            style: TextStyle(fontSize: 20),
+            style: TextStyle( fontSize: 20),
           ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
@@ -189,6 +102,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                   itemBuilder: (context, index) {
                     var ride = rides[index].data() as Map<String, dynamic>;
 
+                    // Safely access ride data with default values
                     final customerName = ride['customerName'] ?? 'Unknown';
                     String status = ride['status'] ?? 'Unknown';
                     bool completed = ride['completed'] ?? false;
@@ -208,6 +122,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
                         );
                       },
                     );
+
                   },
                 );
               },
