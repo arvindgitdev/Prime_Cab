@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,8 @@ class RideDetailsPage extends StatefulWidget {
 
 class _RideDetailsPageState extends State<RideDetailsPage> {
   late Future<Map<String, dynamic>> rideDetailsFuture;
+  Timer? _cancelTimer;
+  Timer? _startRideTimer; // Ensure this is only defined once
 
   @override
   void initState() {
@@ -38,6 +41,64 @@ class _RideDetailsPageState extends State<RideDetailsPage> {
     }
   }
 
+  void _startCancelTimer() {
+    _cancelTimer = Timer(Duration(minutes: 1), () async {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        try {
+          await FirebaseFirestore.instance
+              .collection('rides')
+              .doc(widget.rideId)
+              .update({
+            'status': 'cancelled',
+          });
+
+          await FirebaseFirestore.instance
+              .collection('drivers')
+              .doc(user.uid)
+              .update({'isAvailable': true});
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Ride automatically cancelled due to inactivity.'),
+          ));
+          Navigator.pop(context); // Return to the previous page
+        } catch (e) {
+          print('Error cancelling ride: $e');
+        }
+      }
+    });
+  }
+
+  void startRideTimer() {
+    _startRideTimer = Timer(Duration(minutes: 10), () async {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        try {
+          await FirebaseFirestore.instance
+              .collection('rides')
+              .doc(widget.rideId)
+              .update({
+            'status': 'cancelled',
+          });
+
+          await FirebaseFirestore.instance
+              .collection('drivers')
+              .doc(user.uid)
+              .update({'isAvailable': true});
+
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Ride automatically cancelled due to inactivity.'),
+          ));
+          Navigator.pop(context); // Return to the previous page
+        } catch (e) {
+          print('Error cancelling ride: $e');
+        }
+      }
+    });
+  }
+
   void completeRide(BuildContext context) async {
     User? user = FirebaseAuth.instance.currentUser;
 
@@ -51,11 +112,13 @@ class _RideDetailsPageState extends State<RideDetailsPage> {
           'completed': true,
         });
 
-        // Update the driver's availability to "available"
         await FirebaseFirestore.instance
             .collection('drivers')
             .doc(user.uid)
             .update({'isAvailable': true});
+
+        _cancelTimer?.cancel();
+        _startRideTimer?.cancel();
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Ride marked as completed.'),
@@ -65,6 +128,33 @@ class _RideDetailsPageState extends State<RideDetailsPage> {
         print('Error completing ride: $e');
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Failed to complete ride: $e'),
+        ));
+      }
+    }
+  }
+
+  void startRide(BuildContext context) async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      try {
+        await FirebaseFirestore.instance
+            .collection('rides')
+            .doc(widget.rideId)
+            .update({
+          'status': 'started',
+        });
+
+        _startRideTimer?.cancel(); // Cancel the start ride timer if already started
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Ride started.'),
+        ));
+        Navigator.popUntil(context, ModalRoute.withName('/home')); // Navigate to home screen
+      } catch (e) {
+        print('Error starting ride: $e');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Failed to start ride: $e'),
         ));
       }
     }
@@ -82,11 +172,12 @@ class _RideDetailsPageState extends State<RideDetailsPage> {
           'status': 'accepted',
         });
 
-        // Optionally, you can set driver availability to false here if you want.
         await FirebaseFirestore.instance
             .collection('drivers')
             .doc(user.uid)
             .update({'isAvailable': false});
+
+        _startCancelTimer(); // Start the timer for ride cancellation if not started
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Ride accepted.'),
@@ -96,6 +187,39 @@ class _RideDetailsPageState extends State<RideDetailsPage> {
         print('Error accepting ride: $e');
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Failed to accept ride: $e'),
+        ));
+      }
+    }
+  }
+
+  void cancelRide(BuildContext context) async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      try {
+        await FirebaseFirestore.instance
+            .collection('rides')
+            .doc(widget.rideId)
+            .update({
+          'status': 'cancelled',
+        });
+
+        await FirebaseFirestore.instance
+            .collection('drivers')
+            .doc(user.uid)
+            .update({'isAvailable': true});
+
+        _cancelTimer?.cancel();
+        _startRideTimer?.cancel();
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Ride cancelled.'),
+        ));
+        Navigator.pop(context); // Return to the previous page
+      } catch (e) {
+        print('Error cancelling ride: $e');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Failed to cancel ride: $e'),
         ));
       }
     }
@@ -138,21 +262,49 @@ class _RideDetailsPageState extends State<RideDetailsPage> {
                 Text('Status: $status'),
                 SizedBox(height: 24),
                 if (status == 'pending') ...[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          acceptRide(context);
+                        },
+                        child: Text('Accept Ride'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          cancelRide(context);
+                        },
+                        child: Text('Cancel Ride'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red, // Red color for cancel button
+                        ),
+                      ),
+                    ],
+                  ),
+                ] else if (status == 'accepted') ...[
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        acceptRide(context);
+                        startRide(context);
                       },
-                      child: Text('Accept Ride'),
+                      child: Text('Start Ride'),
                     ),
                   ),
-                ] else if (status == 'accepted') ...[
+                ] else if (status == 'started') ...[
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
                         completeRide(context);
                       },
                       child: Text('Mark as Completed'),
+                    ),
+                  ),
+                ] else if (status == 'cancelled') ...[
+                  Center(
+                    child: Text(
+                      'This ride is cancelled.',
+                      style: TextStyle(color: Colors.red),
                     ),
                   ),
                 ] else ...[
