@@ -1,119 +1,199 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:primecabs/Driver/driver_reg.dart';
+import 'package:primecabs/Driver/driver_home.dart'; // Import the Driver Home Page
 
-class RegScreen extends StatelessWidget {
-  const RegScreen({super.key});
+class DLoginPage extends StatefulWidget {
+  @override
+  _DLoginPageState createState() => _DLoginPageState();
+}
+
+class _DLoginPageState extends State<DLoginPage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _obscureText = true;
+
+  void loginDriver() async {
+    // Show the loading dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+
+      User? user = userCredential.user;
+
+      if (user != null) {
+        // Dismiss the loading dialog
+        Navigator.pop(context);
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Login Successful!'),
+        ));
+
+        // Navigate to the Driver Home Page
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => DriverHomePage()), // Replace with your actual home page
+        );
+      }
+    } catch (e) {
+      // Dismiss the loading dialog
+      Navigator.pop(context);
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Login Failed. Please try again.'),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-          children: [
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              alignment: Alignment.topLeft,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-              ),
-              child: const Padding(
-                padding: EdgeInsets.only(top: 80.0,left: 20),
-                child: Column(
-                  children: [
-                    Text(
-                      'Welcome to\nPrimeServices',
-                      style: TextStyle(
-                      fontSize: 38,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 30),
-                    Text(
-                      "Let's Create your Account",
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey,
-                          //fontWeight: FontWeight.bold),
-                    ),
-                    )
-                  ]
-                )
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 300.0),
-              child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-                  color: Colors.white,
-                ),
-                height: double.infinity,
-                width: double.infinity,
-                child:  Padding(
-                  padding: const EdgeInsets.only(left: 18.0,right: 18),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const TextField(
-                        decoration: InputDecoration(
-                            label: Text('Full Name',style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color:Colors.black,
-                            ),)
-                        ),
-                      ),
-                      const TextField(
-                        decoration: InputDecoration(
-                            label: Text('Phone or Gmail',style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color:Colors.black,
-                            ),)
-                        ),
-                      ),
-                      const TextField(
-                        decoration: InputDecoration(
-                            label: Text('Car no',style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color:Colors.black,
-                            ),)
-                        ),
-                      ),
-                      const TextField(
-                        decoration: InputDecoration(
-                            label: Text('Car color',style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color:Colors.black,
-                            ),)
-                        ),
-                      ),
+      body: Container(
+        margin: const EdgeInsets.all(24),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              const SizedBox(height: 50),
+              _header(context),
+              const SizedBox(height: 50),
+              _inputField(context),
+              const SizedBox(height: 60),
+              _signup(context),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-                      const SizedBox(height: 10,),
-                      const SizedBox(height: 70,),
-                      Container(
-                        height: 55,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.black,
-                          /*gradient: const LinearGradient(
-                              colors: [
-                                Color(0xffB81736),
-                                Color(0xff281537),
-                              ]
-                          ),*/
-                        ),
-                        child: const Center(child: Text('continue',style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white
-                        ),),),
-                      ),
-                    ],
-                  ),
-                ),
+  _header(context) {
+    return const Center(
+      child: Column(
+        children: [
+          SizedBox(height: 70),
+          Text(
+            'Prime Services',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _inputField(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TextField(
+          controller: _emailController,
+          decoration: InputDecoration(
+            hintText: "Email",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(18),
+              borderSide: BorderSide.none,
+            ),
+            fillColor: Colors.grey.withOpacity(0.1),
+            filled: true,
+            prefixIcon: const Icon(Icons.person),
+          ),
+        ),
+        const SizedBox(height: 20),
+        TextField(
+          controller: _passwordController,
+          decoration: InputDecoration(
+            hintText: "Password",
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(18),
+              borderSide: BorderSide.none,
+            ),
+            fillColor: Colors.grey.withOpacity(0.1),
+            filled: true,
+            prefixIcon: const Icon(Icons.lock),
+            suffixIcon: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+              },
+              child: Icon(
+                _obscureText ? Icons.visibility_off : Icons.visibility,
+                color: Colors.grey,
               ),
             ),
-          ],
-        ));
+          ),
+          obscureText: _obscureText,
+        ),
+        const SizedBox(height: 5),
+        Align(
+          alignment: Alignment.centerRight,
+          child: TextButton(
+            onPressed: () {
+              // Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
+            },
+            child: const Text(
+              "Forgot password?",
+              style: TextStyle(color: Colors.black),
+              textAlign: TextAlign.left,
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        ElevatedButton(
+          onPressed: loginDriver,
+          style: ElevatedButton.styleFrom(
+            shape: const StadiumBorder(),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            backgroundColor: Colors.black,
+          ),
+          child: const Text(
+            "Login",
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+
+  _signup(context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          "Don't have an account? ",
+          style: TextStyle(fontSize: 20),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DriverRegistrationPage(),
+              ),
+            );
+          },
+          child: const Text(
+            "Sign Up",
+            style: TextStyle(color: Colors.blue, fontSize: 20),
+          ),
+        ),
+      ],
+    );
   }
 }
