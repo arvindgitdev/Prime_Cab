@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:primecabs/food_vendor/report.dart';
 
 class MyCustomWidget extends StatefulWidget {
   const MyCustomWidget({Key? key}) : super(key: key);
@@ -33,7 +34,14 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Report(),
+                        )
+                    );
+                  },
                 ),
                 SizedBox(height: 30,),
                 ElevatedButton.icon(
