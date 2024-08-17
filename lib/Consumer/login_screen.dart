@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:primecabs/Consumer/home_page.dart';
+import 'package:primecabs/Consumer/navigation.dart';
 import 'package:primecabs/Consumer/user_info.dart';
-
 import 'package:primecabs/provider/auth_provider.dart' as customAuthProvider;
 
 class MyPhone extends StatefulWidget {
@@ -86,9 +85,9 @@ class _MyPhoneState extends State<MyPhone> {
           MaterialPageRoute(builder: (context) => UserInfoPage(user: user)),
         );
       } else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Booking()),
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => HomePage()),
+              (route) => false,
         );
       }
     }

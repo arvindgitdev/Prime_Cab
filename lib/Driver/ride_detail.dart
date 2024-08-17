@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:primecabs/Driver/driver_home.dart';
 
 class RideDetailsPage extends StatefulWidget {
   final String rideId;
@@ -150,7 +151,10 @@ class _RideDetailsPageState extends State<RideDetailsPage> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Ride started.'),
         ));
-        Navigator.popUntil(context, ModalRoute.withName('/home')); // Navigate to home screen
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => DriverHomePage()),
+              (route) => false,
+        ); // Navigate to home screen
       } catch (e) {
         print('Error starting ride: $e');
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

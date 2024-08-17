@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:primecabs/Consumer/home_page.dart'; // Ensure this import is correct
+import 'package:primecabs/Consumer/navigation.dart'; // Ensure this import is correct
 
 class UserInfoPage extends StatefulWidget {
   final User? user;
@@ -87,9 +87,9 @@ class _UserInfoPageState extends State<UserInfoPage> {
           'profile_picture': profilePictureUrl,
         }, SetOptions(merge: true));
 
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Booking()),
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => HomePage()),
+              (route) => false,
         );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed: ${e.toString()}')));
