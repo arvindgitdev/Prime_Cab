@@ -18,31 +18,45 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.blueAccent,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton.icon(
-              icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white, size: 40),
-              label: Text('Scan QR', style: TextStyle(color: Colors.white, fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+              children: [
+                ElevatedButton.icon(
+                  icon: Icon(Icons.edit_note_sharp, color: Colors.white, size: 40),
+                  label: Text('Records', style: TextStyle(color: Colors.white, fontSize: 20)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: (){},
                 ),
-              ),
-              onPressed: scanQRCode,
+                SizedBox(height: 30,),
+                ElevatedButton.icon(
+                  icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white, size: 40),
+                  label: Text('Scan QR', style: TextStyle(color: Colors.white, fontSize: 20)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: scanQRCode,
+                ),
+
+                SizedBox(height: 20.0),
+                Text(
+                  getResult,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
             ),
-            SizedBox(height: 20.0),
-            Text(
-              getResult,
-              style: TextStyle(fontSize: 20),
-            ),
-          ],
+
         ),
-      ),
     );
   }
 

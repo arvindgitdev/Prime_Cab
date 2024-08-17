@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:primecabs/Consumer/home_page.dart';
+//ui0i mport 'package:primecabs/Consumer/home_page.dart';
 import 'package:primecabs/food_vendor/fv_home.dart';
 
 
@@ -31,7 +31,7 @@ class _PhoneState extends State<Phone> {
             children: [
               Text(
                 "Welcome to PrimeServices",
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold,color: Colors.black),
               ),
               SizedBox(
                 height: 40,
@@ -84,7 +84,7 @@ class _PhoneState extends State<Phone> {
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         //iconColor: Colors.white,
-                        backgroundColor: Colors.black87,
+                        backgroundColor: Colors.black12,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
