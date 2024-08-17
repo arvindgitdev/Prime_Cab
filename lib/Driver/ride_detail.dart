@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:primecabs/Driver/driver_home.dart';
 
 class RideDetailsPage extends StatefulWidget {
   final String rideId;
@@ -16,7 +15,7 @@ class RideDetailsPage extends StatefulWidget {
 class _RideDetailsPageState extends State<RideDetailsPage> {
   late Future<Map<String, dynamic>> rideDetailsFuture;
   Timer? _cancelTimer;
-  Timer? _startRideTimer; // Ensure this is only defined once
+  Timer? _startRideTimer;
 
   @override
   void initState() {
@@ -43,7 +42,7 @@ class _RideDetailsPageState extends State<RideDetailsPage> {
   }
 
   void _startCancelTimer() {
-    _cancelTimer = Timer(Duration(minutes: 1), () async {
+    _cancelTimer = Timer(Duration(minutes: 10), () async {
       User? user = FirebaseAuth.instance.currentUser;
 
       if (user != null) {
@@ -151,10 +150,7 @@ class _RideDetailsPageState extends State<RideDetailsPage> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Ride started.'),
         ));
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => DriverHomePage()),
-              (route) => false,
-        ); // Navigate to home screen
+        setState(() {}); // Refresh UI to show the "Mark as Completed" button
       } catch (e) {
         print('Error starting ride: $e');
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -311,7 +307,8 @@ class _RideDetailsPageState extends State<RideDetailsPage> {
                       style: TextStyle(color: Colors.red),
                     ),
                   ),
-                ] else ...[
+                ]
+                else ...[
                   Center(
                     child: Text(
                       'This ride is already completed.',

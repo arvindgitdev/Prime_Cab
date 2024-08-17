@@ -41,9 +41,9 @@ class _DLoginPageState extends State<DLoginPage> {
         ));
 
         // Navigate to the Driver Home Page
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => DriverHomePage()), // Replace with your actual home page
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => DriverHomePage()),
+              (route) => false,
         );
       }
     } catch (e) {

@@ -13,13 +13,40 @@ class BookingPage extends StatefulWidget {
 
 class _BookingPageState extends State<BookingPage> {
   String? rideId;
+  Map<String, dynamic>? driverDetails;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchDriverDetails();
+  }
+
+  Future<void> _fetchDriverDetails() async {
+    try {
+      DocumentSnapshot driverSnapshot = await FirebaseFirestore.instance
+          .collection('drivers')
+          .doc(widget.driverId)
+          .get();
+
+      if (!driverSnapshot.exists) {
+        throw Exception("Driver not found in Firestore.");
+      }
+
+      setState(() {
+        driverDetails = driverSnapshot.data() as Map<String, dynamic>?;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Failed to fetch driver details: $e'),
+      ));
+    }
+  }
 
   Future<void> bookCab(BuildContext context) async {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
       try {
-        // Fetch user details from Firestore
         DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
             .collection('users')
             .doc(user.uid)
@@ -32,7 +59,6 @@ class _BookingPageState extends State<BookingPage> {
         String userName = userSnapshot['name'] ?? 'Unknown';
         String userPhone = userSnapshot['phone'] ?? 'Unknown';
 
-        // Create a ride request with user details
         DocumentReference rideRef = await FirebaseFirestore.instance.collection('rides').add({
           'driverId': widget.driverId,
           'customerId': user.uid,
@@ -46,12 +72,10 @@ class _BookingPageState extends State<BookingPage> {
           rideId = rideRef.id; // Store the ride ID
         });
 
-        // Show success message
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Ride request created successfully! Ride ID: $rideId'),
         ));
 
-        // Listen for updates on the ride status
         rideRef.snapshots().listen((rideSnapshot) {
           if (rideSnapshot.exists && rideSnapshot['status'] == 'accepted') {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -60,7 +84,6 @@ class _BookingPageState extends State<BookingPage> {
           }
         });
       } catch (e) {
-        // Show error message
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Failed to book cab: $e'),
         ));
@@ -79,24 +102,76 @@ class _BookingPageState extends State<BookingPage> {
         title: Text('Book Cab'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                bookCab(context);
-              },
-              child: Text('Book Now'),
-            ),
-            if (rideId != null) // Show ride ID if available
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  'Your Ride ID: $rideId',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
+        child: driverDetails == null
+            ? CircularProgressIndicator() // Show loading indicator while fetching
+            : Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Driver Photo
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: driverDetails?['driverImageUrl'] != null && driverDetails!['driverImageUrl'].isNotEmpty
+                    ? NetworkImage(driverDetails!['driverImageUrl'])
+                    : null,
+                child: driverDetails?['driverImageUrl'] == null || driverDetails!['driverImageUrl'].isEmpty
+                    ? Icon(Icons.person, size: 50, color: Colors.grey)
+                    : null,
               ),
-          ],
+              SizedBox(height: 20),
+              // Driver Details
+              Text(
+                'Driver Details:',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text('Name: ${driverDetails?['name'] ?? 'N/A'}', style: TextStyle(fontSize: 18)),
+              Text('Phone: ${driverDetails?['phone'] ?? 'N/A'}', style: TextStyle(fontSize: 18)),
+              Text('Email: ${driverDetails?['email']?.toString() ?? 'N/A'}', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 20),
+              // Car Details
+              Text(
+                'Car Details:',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              Text('Car No.: ${driverDetails?['carNo'] ?? 'N/A'}', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 10),
+              // Car Photo
+              if (driverDetails?['carImageUrl'] != null && driverDetails!['carImageUrl'].isNotEmpty)
+                Container(
+                  width: 150,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: NetworkImage(driverDetails!['carImageUrl']),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              else
+                Icon(Icons.directions_car, size: 100, color: Colors.grey),
+              SizedBox(height: 20),
+              // Book Now Button
+              ElevatedButton(
+                onPressed: () {
+                  bookCab(context);
+                },
+                child: Text('Book Now', style: TextStyle(fontSize: 18)),
+              ),
+              if (rideId != null) // Show ride ID if available
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Your Ride ID: $rideId',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

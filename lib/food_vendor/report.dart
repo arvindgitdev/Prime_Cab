@@ -12,7 +12,7 @@ class _ReportState extends State<Report> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-        title: Text('Report'),
+        title: const Text('Report'),
     backgroundColor: Colors.blueAccent,
     ),
     );
