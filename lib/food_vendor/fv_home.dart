@@ -1,88 +1,81 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:primecabs/food_vendor/report.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyCustomWidget extends StatefulWidget {
-  const MyCustomWidget({Key? key}) : super(key: key);
+  final Function(String) onScan;
+
+  MyCustomWidget({required this.onScan});
 
   @override
-  State<MyCustomWidget> createState() => _MyCustomWidgetState();
+  _MyCustomWidgetState createState() => _MyCustomWidgetState();
 }
 
 class _MyCustomWidgetState extends State<MyCustomWidget> {
-  String getResult = 'QR Code Result';
+  String? _scanResult;
+
+  Future<void> scanQRCode() async {
+    try {
+      String scanResult = await FlutterBarcodeScanner.scanBarcode(
+        "#ff6666",
+        "Cancel",
+        true,
+        ScanMode.QR,
+      );
+
+      if (scanResult != '-1') {
+        setState(() {
+          _scanResult = scanResult;
+        });
+        widget.onScan(scanResult); // Pass the result back
+        await addFieldToDocuments(scanResult); // Add field to documents in Firestore
+      }
+    } catch (e) {
+      setState(() {
+        _scanResult = 'Failed to scan QR code: $e';
+      });
+    }
+  }
+
+  Future<void> addFieldToDocuments(String scanResult) async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    final collectionRef = _firestore.collection('food_distributions');
+
+    final querySnapshot = await collectionRef
+        .where('scan_code', isEqualTo: scanResult) // Assuming you use scanResult to match documents
+        .get();
+
+    for (var doc in querySnapshot.docs) {
+      await doc.reference.update({
+        'new_field': 'default_value', // Replace with your field name and default value
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
-        backgroundColor: Colors.blueAccent,
+        title: Text('QR Code Scanner'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton.icon(
-                  icon: Icon(Icons.edit_note_sharp, color: Colors.white, size: 40),
-                  label: Text('Records', style: TextStyle(color: Colors.white, fontSize: 20)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Report(),
-                        )
-                    );
-                  },
-                ),
-                SizedBox(height: 30,),
-                ElevatedButton.icon(
-                  icon: Icon(Icons.qr_code_scanner_outlined, color: Colors.white, size: 40),
-                  label: Text('Scan QR', style: TextStyle(color: Colors.white, fontSize: 20)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: scanQRCode,
-                ),
-
-                SizedBox(height: 20.0),
-                Text(
-                  getResult,
-                  style: TextStyle(fontSize: 20),
-                ),
-              ],
+          children: [
+            ElevatedButton(
+              onPressed: scanQRCode,
+              child: Text('Start QR Code Scan'),
             ),
-
+            SizedBox(height: 20),
+            if (_scanResult != null)
+              Text(
+                'Scan result: $_scanResult',
+                style: TextStyle(fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+          ],
         ),
+      ),
     );
-  }
-
-  void scanQRCode() async {
-    try {
-      final qrCode = await FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', true, ScanMode.QR);
-
-      if (!mounted) return;
-
-      setState(() {
-        getResult = qrCode;
-      });
-      print("QRCode_Result:--");
-      print(qrCode);
-    } on PlatformException {
-      setState(() {
-        getResult = 'Failed to scan QR Code.';
-      });
-    }
   }
 }
