@@ -7,13 +7,13 @@ class UserHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Available Cabs'),
+        title: const Text('Available Cabs'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection('drivers').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           var drivers = snapshot.data!.docs.where((doc) {
@@ -22,7 +22,7 @@ class UserHomePage extends StatelessWidget {
           }).toList();
 
           if (drivers.isEmpty) {
-            return Center(child: Text('No available cabs at the moment.'));
+            return const Center(child: Text('No available cabs at the moment.'));
           }
 
           return ListView.builder(
@@ -41,11 +41,11 @@ class UserHomePage extends StatelessWidget {
                   contentPadding: const EdgeInsets.all(16),
                   title: Text(
                     data['name'] ?? 'No Name',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   subtitle: Text(
                     'Car No: ${data['carNo'] ?? 'Unknown'}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
                   trailing: Text(
                     isAvailable ? 'Available' : 'Not Available',

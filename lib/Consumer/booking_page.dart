@@ -78,7 +78,7 @@ class _BookingPageState extends State<BookingPage> {
 
         rideRef.snapshots().listen((rideSnapshot) {
           if (rideSnapshot.exists && rideSnapshot['status'] == 'accepted') {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Ride Accepted by Driver!'),
             ));
           }
@@ -89,7 +89,7 @@ class _BookingPageState extends State<BookingPage> {
         ));
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('No user is currently signed in.'),
       ));
     }
@@ -99,11 +99,11 @@ class _BookingPageState extends State<BookingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Book Cab'),
+        title: const Text('Book Cab'),
       ),
       body: Center(
         child: driverDetails == null
-            ? CircularProgressIndicator() // Show loading indicator while fetching
+            ? const CircularProgressIndicator() // Show loading indicator while fetching
             : Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -117,28 +117,28 @@ class _BookingPageState extends State<BookingPage> {
                     ? NetworkImage(driverDetails!['driverImageUrl'])
                     : null,
                 child: driverDetails?['driverImageUrl'] == null || driverDetails!['driverImageUrl'].isEmpty
-                    ? Icon(Icons.person, size: 50, color: Colors.grey)
+                    ? const Icon(Icons.person, size: 50, color: Colors.grey)
                     : null,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Driver Details
-              Text(
+              const Text(
                 'Driver Details:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
-              Text('Name: ${driverDetails?['name'] ?? 'N/A'}', style: TextStyle(fontSize: 18)),
-              Text('Phone: ${driverDetails?['phone'] ?? 'N/A'}', style: TextStyle(fontSize: 18)),
-              Text('Email: ${driverDetails?['email']?.toString() ?? 'N/A'}', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 20),
+              const SizedBox(height: 10),
+              Text('Name: ${driverDetails?['name'] ?? 'N/A'}', style: const TextStyle(fontSize: 20)),
+              Text('Phone: ${driverDetails?['phone'] ?? 'N/A'}', style: const TextStyle(fontSize: 20)),
+              Text('Email: ${driverDetails?['email']?.toString() ?? 'N/A'}', style: const TextStyle(fontSize: 20)),
+              const SizedBox(height: 20),
               // Car Details
-              Text(
+              const Text(
                 'Car Details:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 10),
-              Text('Car No.: ${driverDetails?['carNo'] ?? 'N/A'}', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
+              Text('Car No.: ${driverDetails?['carNo'] ?? 'N/A'}', style: const TextStyle(fontSize: 20)),
+              const SizedBox(height: 10),
               // Car Photo
               if (driverDetails?['carImageUrl'] != null && driverDetails!['carImageUrl'].isNotEmpty)
                 Container(
@@ -153,21 +153,21 @@ class _BookingPageState extends State<BookingPage> {
                   ),
                 )
               else
-                Icon(Icons.directions_car, size: 100, color: Colors.grey),
-              SizedBox(height: 20),
+                const Icon(Icons.directions_car, size: 100, color: Colors.grey),
+              const SizedBox(height: 20),
               // Book Now Button
               ElevatedButton(
                 onPressed: () {
                   bookCab(context);
                 },
-                child: Text('Book Now', style: TextStyle(fontSize: 18)),
+                child: const Text('Book Now', style: TextStyle(fontSize: 18)),
               ),
               if (rideId != null) // Show ride ID if available
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     'Your Ride ID: $rideId',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
             ],
