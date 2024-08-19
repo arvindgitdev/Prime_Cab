@@ -14,41 +14,36 @@ class VendorHome extends StatefulWidget {
 }
 
 class _VendorHomeState extends State<VendorHome> {
-  int _selectedIndex = 0;
-  String? _scanResult;
-
-  void _navigate(int index) {
+  int _selectedIndex=0;
+  void _navigate(int index){
     setState(() {
-      _selectedIndex = index;
+      _selectedIndex= index;
     });
-  }
 
-  void _handleScanResult(String result) {
-    setState(() {
-      _scanResult = result;
-      _selectedIndex = 1; // Navigate to DailyRecordPage
-    });
   }
+  final List< Widget> _pages = [
+    MyCustomWidget(onScan: (String ) {  },),
+    DailyRecordPage(),
+    const SupplierProfilePage(),
+
+  ];
+
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _pages = [
-      MyCustomWidget(onScan: _handleScanResult),
-      DailyRecordPage(scanResult: _scanResult),
-      const SupplierProfilePage(),
-    ];
-
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: GNav(
+
         gap: 5,
-        onTabChange: _navigate,
-        tabs: [
-          const GButton(icon: Icons.qr_code_scanner, text: "Scanner", iconSize: 30),
-          const GButton(icon: Icons.edit_note_sharp, text: "Food", iconSize: 30),
-          const GButton(icon: Icons.person, text: "Person", iconSize: 30),
+        onTabChange:_navigate ,
+        tabs: const [
+          GButton(icon: Icons.qr_code_scanner_rounded, text: "Scanner",iconSize: 30,),
+          GButton(icon: Icons.edit_note_rounded,text: "Record",iconSize: 30,),
+          GButton(icon: Icons.person,text: "Person",iconSize: 30,),
         ],
       ),
     );
   }
+
 }

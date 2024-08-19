@@ -1,132 +1,102 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart'; // For date formatting
 
 class DailyRecordPage extends StatefulWidget {
-  final String? scanResult;
-
-  DailyRecordPage({this.scanResult});
-
   @override
   _DailyRecordPageState createState() => _DailyRecordPageState();
 }
 
 class _DailyRecordPageState extends State<DailyRecordPage> {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  String _selectedDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
-  bool _loading = true;
-  List<Map<String, dynamic>> _foodRecords = [];
-  int _totalScans = 0; // Variable to store total number of scans
+  DateTime? _selectedDate;
+  int _totalScans = 0;
 
   @override
   void initState() {
     super.initState();
-    _fetchDailyRecords();
+    _selectedDate = DateTime.now(); // Default to today's date
   }
 
-  Future<void> _fetchDailyRecords() async {
-    setState(() {
-      _loading = true;
-    });
-
-    try {
-      print("Fetching records for date: $_selectedDate");
-      final querySnapshot = await _firestore
-          .collection('food_distributions')
-          .where('date', isEqualTo: _selectedDate)
-          .orderBy('timestamp', descending: true)
-          .get();
-
-      print("Number of records fetched: ${querySnapshot.docs.length}");
-
-      setState(() {
-        _foodRecords = querySnapshot.docs
-            .map((doc) => {
-          'user_id': doc['user_id'],
-          'timestamp': (doc['timestamp'] as Timestamp).toDate(),
-        })
-            .toList();
-        _totalScans = _foodRecords.length; // Update total number of scans
-        _loading = false;
-      });
-
-      if (widget.scanResult != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Scan result: ${widget.scanResult}')),
-        );
-      }
-    } catch (e) {
-      setState(() {
-        _loading = false;
-      });
-      print("Error fetching records: $e");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to fetch records: ${e.toString()}')),
-      );
-    }
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+  void _pickDate() async {
+    DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: DateTime.parse(_selectedDate),
-      firstDate: DateTime(2023, 1),
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2020), // Adjust as needed
       lastDate: DateTime.now(),
     );
-    if (picked != null && picked != DateTime.parse(_selectedDate)) {
+
+    if (pickedDate != null) {
       setState(() {
-        _selectedDate = DateFormat('yyyy-MM-dd').format(picked);
-        _fetchDailyRecords();
+        _selectedDate = pickedDate;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daily Food Distribution Records'),
+        title: Text('Daily Scan Records'),
         actions: [
           IconButton(
             icon: Icon(Icons.calendar_today),
-            onPressed: () => _selectDate(context),
+            onPressed: _pickDate,
           ),
         ],
       ),
-      body: _loading
-          ? Center(child: CircularProgressIndicator())
-          : Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Total Scans: $_totalScans',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-          ),
-          _foodRecords.isEmpty
-              ? Expanded(
-            child: Center(
-              child: Text(
-                'No records found for $_selectedDate',
-                style: TextStyle(fontSize: 18),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('food_distributions')
+            .where('timestamp', isGreaterThanOrEqualTo: Timestamp.fromDate(DateTime(_selectedDate!.year, _selectedDate!.month, _selectedDate!.day)))
+            .where('timestamp', isLessThan: Timestamp.fromDate(DateTime(_selectedDate!.year, _selectedDate!.month, _selectedDate!.day + 1)))
+            .orderBy('timestamp', descending: true)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          final records = snapshot.data?.docs ?? [];
+          _totalScans = records.length;
+
+          if (records.isEmpty) {
+            return Center(child: Text('No records found.'));
+          }
+
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Total Scans: $_totalScans',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-          )
-              : Expanded(
-            child: ListView.builder(
-              itemCount: _foodRecords.length,
-              itemBuilder: (context, index) {
-                final record = _foodRecords[index];
-                return ListTile(
-                  title: Text('User ID: ${record['user_id']}'),
-                  subtitle: Text(
-                      'Time: ${DateFormat('hh:mm a').format(record['timestamp'])}'),
-                );
-              },
-            ),
-          ),
-        ],
+              Expanded(
+                child: ListView.builder(
+                  itemCount: records.length,
+                  itemBuilder: (context, index) {
+                    var record = records[index];
+                    var userName = record['name'] ?? 'N/A';
+                    var timestamp = record['timestamp'] as Timestamp;
+                    var dateTime = timestamp.toDate();
+                    var formattedTime = DateFormat('hh:mm a').format(dateTime);
+
+                    return ListTile(
+                      title: Text(userName),
+                      subtitle: Text('Scan Time: $formattedTime'),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
