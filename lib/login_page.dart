@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:primecabs/Consumer/login_screen.dart';
 import 'package:primecabs/Driver/driver_login.dart';
 import 'package:primecabs/food_vendor/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -65,13 +66,14 @@ class LoginPage extends StatelessWidget {
                 title: const Text("Driver"),
                 value: "Driver",
                 groupValue: selectedUserType,
-                onChanged: (String? value) {
+                onChanged: (String? value) async {
                   selectedUserType = value;
+                  await _storeUserType("Driver");
                   Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>  DLoginPage(),
+                      builder: (context) => DLoginPage(),
                     ),
                   );
                 },
@@ -80,8 +82,9 @@ class LoginPage extends StatelessWidget {
                 title: const Text("Consumer"),
                 value: "Consumer",
                 groupValue: selectedUserType,
-                onChanged: (String? value) {
+                onChanged: (String? value) async {
                   selectedUserType = value;
+                  await _storeUserType("Consumer");
                   Navigator.pop(context);
                   Navigator.push(
                     context,
@@ -95,8 +98,9 @@ class LoginPage extends StatelessWidget {
                 title: const Text("Food Vendor"),
                 value: "Food Vendor",
                 groupValue: selectedUserType,
-                onChanged: (String? value) {
+                onChanged: (String? value) async {
                   selectedUserType = value;
+                  await _storeUserType("Food Vendor");
                   Navigator.pop(context);
                   Navigator.push(
                     context,
@@ -111,5 +115,10 @@ class LoginPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> _storeUserType(String userType) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userType', userType);
   }
 }

@@ -41,53 +41,53 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyALO4wWuIU6YbXIoo_xV3h59q8x4OnpYKM',
-    appId: '1:917975444880:web:63deb2b6ff2bbe2d519715',
-    messagingSenderId: '917975444880',
-    projectId: 'primecabs-eb17a',
-    authDomain: 'primecabs-eb17a.firebaseapp.com',
-    storageBucket: 'primecabs-eb17a.appspot.com',
-    measurementId: 'G-HZFD7HQ8XM',
+    apiKey: 'AIzaSyDQo1obDEq8c4LlBOOxiuUT_elKV2C8VFk',
+    appId: '1:136133203472:web:a09d0f9c35f102b5a75c95',
+    messagingSenderId: '136133203472',
+    projectId: 'primeservices-b1870',
+    authDomain: 'primeservices-b1870.firebaseapp.com',
+    storageBucket: 'primeservices-b1870.appspot.com',
+    measurementId: 'G-HL7DTEDRQS',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyD0-QOIOAm2KaPoncjEAvlZDmP8a4OkVjY',
-    appId: '1:917975444880:android:c24c55ba0068ea42519715',
-    messagingSenderId: '917975444880',
-    projectId: 'primecabs-eb17a',
-    storageBucket: 'primecabs-eb17a.appspot.com',
+    apiKey: 'AIzaSyCXTRjigE-QelkKuo9qGsaOrdIR4MJiEdk',
+    appId: '1:136133203472:android:c2a48b07f7af7dc2a75c95',
+    messagingSenderId: '136133203472',
+    projectId: 'primeservices-b1870',
+    storageBucket: 'primeservices-b1870.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCLv4LpQQFo1XCwakWGU2wZ3_zK92HWsSo',
-    appId: '1:917975444880:ios:fa72ac7dbe5b7be3519715',
-    messagingSenderId: '917975444880',
-    projectId: 'primecabs-eb17a',
-    storageBucket: 'primecabs-eb17a.appspot.com',
-    androidClientId: '917975444880-dh7i988dciv3mfnq2pgpriro5d0jh72g.apps.googleusercontent.com',
-    iosClientId: '917975444880-q6ptpn961nsslua64hvqmnvvmn2vefg0.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAjE8IIRvQQYkEpQp3zFZbYinnp2-jTIIs',
+    appId: '1:136133203472:ios:3f5ffb3ce2b04f29a75c95',
+    messagingSenderId: '136133203472',
+    projectId: 'primeservices-b1870',
+    storageBucket: 'primeservices-b1870.appspot.com',
+    androidClientId: '136133203472-pdn7icd50ndmd0tedqi4me1i30euvq3e.apps.googleusercontent.com',
+    iosClientId: '136133203472-s3635r5f9cupbhplee0utjmp28bdlri7.apps.googleusercontent.com',
     iosBundleId: 'com.example.primecabs',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCLv4LpQQFo1XCwakWGU2wZ3_zK92HWsSo',
-    appId: '1:917975444880:ios:fa72ac7dbe5b7be3519715',
-    messagingSenderId: '917975444880',
-    projectId: 'primecabs-eb17a',
-    storageBucket: 'primecabs-eb17a.appspot.com',
-    androidClientId: '917975444880-dh7i988dciv3mfnq2pgpriro5d0jh72g.apps.googleusercontent.com',
-    iosClientId: '917975444880-q6ptpn961nsslua64hvqmnvvmn2vefg0.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAjE8IIRvQQYkEpQp3zFZbYinnp2-jTIIs',
+    appId: '1:136133203472:ios:3f5ffb3ce2b04f29a75c95',
+    messagingSenderId: '136133203472',
+    projectId: 'primeservices-b1870',
+    storageBucket: 'primeservices-b1870.appspot.com',
+    androidClientId: '136133203472-pdn7icd50ndmd0tedqi4me1i30euvq3e.apps.googleusercontent.com',
+    iosClientId: '136133203472-s3635r5f9cupbhplee0utjmp28bdlri7.apps.googleusercontent.com',
     iosBundleId: 'com.example.primecabs',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyALO4wWuIU6YbXIoo_xV3h59q8x4OnpYKM',
-    appId: '1:917975444880:web:c426b5c59ca721c1519715',
-    messagingSenderId: '917975444880',
-    projectId: 'primecabs-eb17a',
-    authDomain: 'primecabs-eb17a.firebaseapp.com',
-    storageBucket: 'primecabs-eb17a.appspot.com',
-    measurementId: 'G-XJ9MDWESD4',
+    apiKey: 'AIzaSyDQo1obDEq8c4LlBOOxiuUT_elKV2C8VFk',
+    appId: '1:136133203472:web:9cf1b63461521132a75c95',
+    messagingSenderId: '136133203472',
+    projectId: 'primeservices-b1870',
+    authDomain: 'primeservices-b1870.firebaseapp.com',
+    storageBucket: 'primeservices-b1870.appspot.com',
+    measurementId: 'G-F4TVTL5DBV',
   );
 
 }

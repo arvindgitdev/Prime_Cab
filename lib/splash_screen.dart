@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:primecabs/Consumer/navigation.dart';
+import 'package:primecabs/Driver/driver_home.dart';
+import 'package:primecabs/food_vendor/v_nav.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -32,13 +36,38 @@ class _SplashScreenState extends State<SplashScreen>
     // Start the animation
     _controller.forward();
 
-    // Navigate to LoginPage after a delay
+    // Display the splash screen for a moment before navigating
     Future.delayed(const Duration(seconds: 2), () {
+      _navigateToNextScreen();
+    });
+  }
+
+  Future<void> _navigateToNextScreen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userType = prefs.getString('userType');  // Retrieve the stored user type
+
+    if (userType == 'Driver') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => DriverHomePage()),  // Navigate to Driver home screen
+      );
+    } else if (userType == 'Consumer') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomePage()),  // Navigate to Consumer home screen
+      );
+    } else if (userType == 'Food Vendor') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const VendorHome()),  // Navigate to Food Vendor home screen
+      );
+    } else {
+      // If no user type is stored, navigate to the Login page
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginPage()),
       );
-    });
+    }
   }
 
   @override
@@ -50,7 +79,6 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: Center(
         child: ScaleTransition(
           scale: _animation,
@@ -59,7 +87,6 @@ class _SplashScreenState extends State<SplashScreen>
             style: TextStyle(
               fontSize: 48.0,
               fontWeight: FontWeight.bold,
-
             ),
           ),
         ),
