@@ -1,45 +1,45 @@
 {
   "project_info": {
-    "project_number": "136133203472",
-    "project_id": "primeservices-b1870",
-    "storage_bucket": "primeservices-b1870.appspot.com"
+    "project_number": "917975444880",
+    "project_id": "primecabs-eb17a",
+    "storage_bucket": "primecabs-eb17a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:136133203472:android:c2a48b07f7af7dc2a75c95",
+        "mobilesdk_app_id": "1:917975444880:android:c24c55ba0068ea42519715",
         "android_client_info": {
-          "package_name": "com.example.primeservices"
+          "package_name": "com.example.primecabs"
         }
       },
       "oauth_client": [
         {
-          "client_id": "136133203472-pdn7icd50ndmd0tedqi4me1i30euvq3e.apps.googleusercontent.com",
+          "client_id": "917975444880-dh7i988dciv3mfnq2pgpriro5d0jh72g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.primeservices",
+            "package_name": "com.example.primecabs",
             "certificate_hash": "174318c815c7fe31c8b7833fe5153f8310030f8c"
           }
         },
         {
-          "client_id": "136133203472-kmj4bpt5hggtoej8t6ggs0v2p5g3qbd3.apps.googleusercontent.com",
+          "client_id": "917975444880-ljq1s78vud78mgrg7obkcun83i31i724.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCXTRjigE-QelkKuo9qGsaOrdIR4MJiEdk"
+          "current_key": "AIzaSyD0-QOIOAm2KaPoncjEAvlZDmP8a4OkVjY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "136133203472-kmj4bpt5hggtoej8t6ggs0v2p5g3qbd3.apps.googleusercontent.com",
+              "client_id": "917975444880-ljq1s78vud78mgrg7obkcun83i31i724.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "136133203472-1d1d3evh588ohsfgrgcefk2v7avqg9o2.apps.googleusercontent.com",
+              "client_id": "917975444880-9fpcq2id8pfm3grj4an8jtqn4hvkmnr0.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.primeservices"
