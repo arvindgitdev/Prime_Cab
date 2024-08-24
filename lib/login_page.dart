@@ -16,7 +16,7 @@ class LoginPage extends StatelessWidget {
           children: [
             Center(
               child: Image.asset(
-                "assets/images/taxi-booking.png",
+                "assets/images/logo1.png",
               ),
             ),
             Align(
