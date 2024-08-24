@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:primecabs/provider/auth_provider.dart' as custom_auth_provider; // Import your AuthProvider
 
 class SupplierProfilePage extends StatefulWidget {
-  const SupplierProfilePage({Key? key}) : super(key: key);
+  const SupplierProfilePage({super.key});
 
   @override
   State<SupplierProfilePage> createState() => _SupplierProfilePageState();
@@ -64,7 +64,7 @@ class _SupplierProfilePageState extends State<SupplierProfilePage> {
             onPressed: () async {
               await authProvider.signOut(); // Call sign-out method from AuthProvider
               Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => LoginPage()),
+                MaterialPageRoute(builder: (context) => const LoginPage()),
                     (route) => false,
               ); // Navigate to the login page
             },

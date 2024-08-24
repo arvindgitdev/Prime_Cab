@@ -20,8 +20,8 @@ class _HomePageState extends State<HomePage>{
 
   }
   final List< Widget> _pages = [
-    UserHomePage(),
-    QRCodePage(),
+    const UserHomePage(),
+    const QRCodePage(),
     const ProfilePage(),
 
   ];
@@ -35,10 +35,10 @@ class _HomePageState extends State<HomePage>{
 
         gap: 5,
         onTabChange:_navigate ,
-        tabs: [
-          const GButton(icon: Icons.local_taxi_outlined, text: "Cab",iconSize: 30,),
-          const GButton(icon: Icons.restaurant,text: "Food",iconSize: 30,),
-          const GButton(icon: Icons.person,text: "Person",iconSize: 30,),
+        tabs: const [
+          GButton(icon: Icons.local_taxi_outlined, text: "Cab",iconSize: 30,),
+          GButton(icon: Icons.restaurant,text: "Food",iconSize: 30,),
+          GButton(icon: Icons.person,text: "Person",iconSize: 30,),
         ],
       ),
     );

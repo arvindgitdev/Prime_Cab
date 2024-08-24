@@ -5,6 +5,8 @@ import 'package:primecabs/Driver/accept_page.dart';
 import 'package:primecabs/Driver/ride_detail.dart';
 
 class DriverHomePage extends StatefulWidget {
+  const DriverHomePage({super.key});
+
   @override
   _DriverHomePageState createState() => _DriverHomePageState();
 }
@@ -48,15 +50,15 @@ class _DriverHomePageState extends State<DriverHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Driver Home'),
+        title: const Text('Driver Home'),
         centerTitle: false,
         actions: [
           IconButton(
-            icon: Icon(Icons.notifications),
+            icon: const Icon(Icons.notifications),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => RideRequestsPage()), // Navigate to NotificationsPage
+                MaterialPageRoute(builder: (context) => const RideRequestsPage()), // Navigate to NotificationsPage
               );
             },
           ),
@@ -66,7 +68,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SwitchListTile(
-            title: Text('Available'),
+            title: const Text('Available'),
             value: isAvailable,
             onChanged: (value) {
               setState(() {
@@ -75,8 +77,8 @@ class _DriverHomePageState extends State<DriverHomePage> {
               toggleAvailability();
             },
           ),
-          SizedBox(height: 20),
-          Text(
+          const SizedBox(height: 20),
+          const Text(
             'Ride History',
             style: TextStyle( fontSize: 20),
           ),
@@ -88,11 +90,11 @@ class _DriverHomePageState extends State<DriverHomePage> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Center(child: Text('No ride history available.'));
+                  return const Center(child: Text('No ride history available.'));
                 }
 
                 var rides = snapshot.data!.docs;

@@ -72,7 +72,7 @@ class AuthProvider with ChangeNotifier {
   // Apple Sign-In (iOS only)
   Future<User?> signInWithApple() async {
     final AuthorizationResult result = await TheAppleSignIn.performRequests([
-      AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+      const AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
     ]);
 
     if (result.status == AuthorizationStatus.authorized) {

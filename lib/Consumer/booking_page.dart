@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class BookingPage extends StatefulWidget {
   final String driverId;
 
-  BookingPage({required this.driverId});
+  const BookingPage({super.key, required this.driverId});
 
   @override
   _BookingPageState createState() => _BookingPageState();

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:primecabs/Consumer/booking_page.dart';
 
 class UserHomePage extends StatelessWidget {
+  const UserHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

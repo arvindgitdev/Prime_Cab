@@ -93,7 +93,7 @@ class _DriverRegistrationPageState extends State<DriverRegistrationPage> {
                 Navigator.of(context).pop(); // Close the success dialog
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => DriverHomePage()), // Replace with your actual home page
+                  MaterialPageRoute(builder: (context) => const DriverHomePage()), // Replace with your actual home page
                 );
               },
               child: const Text('OK'),

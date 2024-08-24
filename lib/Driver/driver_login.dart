@@ -4,6 +4,8 @@ import 'package:primecabs/Driver/driver_reg.dart';
 import 'package:primecabs/Driver/driver_home.dart'; // Import the Driver Home Page
 
 class DLoginPage extends StatefulWidget {
+  const DLoginPage({super.key});
+
   @override
   _DLoginPageState createState() => _DLoginPageState();
 }
@@ -19,7 +21,7 @@ class _DLoginPageState extends State<DLoginPage> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },
@@ -36,13 +38,13 @@ class _DLoginPageState extends State<DLoginPage> {
         // Dismiss the loading dialog
         Navigator.pop(context);
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Login Successful!'),
         ));
 
         // Navigate to the Driver Home Page
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => DriverHomePage()),
+          MaterialPageRoute(builder: (context) => const DriverHomePage()),
               (route) => false,
         );
       }
@@ -50,7 +52,7 @@ class _DLoginPageState extends State<DLoginPage> {
       // Dismiss the loading dialog
       Navigator.pop(context);
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Login Failed. Please try again.'),
       ));
     }

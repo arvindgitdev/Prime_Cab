@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
     if (userType == 'Driver') {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => DriverHomePage()),  // Navigate to Driver home screen
+        MaterialPageRoute(builder: (context) => const DriverHomePage()),  // Navigate to Driver home screen
       );
     } else if (userType == 'Consumer') {
       Navigator.pushReplacement(

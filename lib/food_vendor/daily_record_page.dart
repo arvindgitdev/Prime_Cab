@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart'; // For date formatting
 
 class DailyRecordPage extends StatefulWidget {
+  const DailyRecordPage({super.key});
+
   @override
   _DailyRecordPageState createState() => _DailyRecordPageState();
 }
@@ -38,10 +40,10 @@ class _DailyRecordPageState extends State<DailyRecordPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daily Scan Records'),
+        title: const Text('Daily Scan Records'),
         actions: [
           IconButton(
-            icon: Icon(Icons.calendar_today),
+            icon: const Icon(Icons.calendar_today),
             onPressed: _pickDate,
           ),
         ],
@@ -58,14 +60,14 @@ class _DailyRecordPageState extends State<DailyRecordPage> {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           final records = snapshot.data?.docs ?? [];
           _totalScans = records.length;
 
           if (records.isEmpty) {
-            return Center(child: Text('No records found.'));
+            return const Center(child: Text('No records found.'));
           }
 
           return Column(
@@ -74,7 +76,7 @@ class _DailyRecordPageState extends State<DailyRecordPage> {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   'Total Scans: $_totalScans',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
               Expanded(

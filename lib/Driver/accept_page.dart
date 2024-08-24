@@ -5,13 +5,15 @@ import 'package:primecabs/Driver/ride_detail.dart';
  // Import the RideDetailsPage
 
 class RideRequestsPage extends StatelessWidget {
+  const RideRequestsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ride Requests'),
+        title: const Text('Ride Requests'),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -21,11 +23,11 @@ class RideRequestsPage extends StatelessWidget {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(child: Text('No ride requests available.'));
+            return const Center(child: Text('No ride requests available.'));
           }
 
           final rides = snapshot.data!.docs;
@@ -62,7 +64,7 @@ class RideRequestsPage extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('Accept'),
+                  child: const Text('Accept'),
                 ),
               );
             },

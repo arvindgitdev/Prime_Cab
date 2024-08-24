@@ -10,7 +10,7 @@ class UserInfoPage extends StatefulWidget {
   final User? user;
   final String? phone;
 
-  const UserInfoPage({Key? key, this.user, this.phone}) : super(key: key);
+  const UserInfoPage({super.key, this.user, this.phone});
 
   @override
   State<UserInfoPage> createState() => _UserInfoPageState();
@@ -88,7 +88,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
         }, SetOptions(merge: true));
 
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => const HomePage()),
               (route) => false,
         );
       } catch (e) {

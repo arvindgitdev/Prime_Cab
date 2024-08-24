@@ -23,7 +23,7 @@ class _VendorHomeState extends State<VendorHome> {
   }
   final List< Widget> _pages = [
     MyCustomWidget(onScan: (String ) {  },),
-    DailyRecordPage(),
+    const DailyRecordPage(),
     const SupplierProfilePage(),
 
   ];

@@ -10,7 +10,7 @@ class VenInfoPage extends StatefulWidget {
   final User? user;
   final String? phone;
 
-  const VenInfoPage({Key? key, this.user, this.phone}) : super(key: key);
+  const VenInfoPage({super.key, this.user, this.phone});
 
   @override
   State<VenInfoPage> createState() => _VenInfoPageState();
@@ -88,7 +88,7 @@ class _VenInfoPageState extends State<VenInfoPage> {
         }, SetOptions(merge: true));
 
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) =>VendorHome()),
+          MaterialPageRoute(builder: (context) =>const VendorHome()),
               (route) => false,
         );
       } catch (e) {

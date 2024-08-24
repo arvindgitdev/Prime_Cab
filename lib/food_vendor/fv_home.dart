@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart'; // For formatting datetime
 
 class MyCustomWidget extends StatefulWidget {
   final Function(String) onScan;
 
-  MyCustomWidget({required this.onScan});
+  const MyCustomWidget({super.key, required this.onScan});
 
   @override
   _MyCustomWidgetState createState() => _MyCustomWidgetState();
@@ -17,19 +17,19 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
 
   Future<void> scanQRCode() async {
     try {
-      String scanResult = await FlutterBarcodeScanner.scanBarcode(
-        "#ff6666",
-        "Cancel",
-        true,
-        ScanMode.QR,
+      final scanResult = await BarcodeScanner.scan(
+        options: ScanOptions(
+          useCamera: -1, // Use the default camera
+          // Additional options if needed
+        ),
       );
 
-      if (scanResult != '-1') {
+      if (scanResult.rawContent.isNotEmpty) {
         setState(() {
-          _scanResult = scanResult;
+          _scanResult = scanResult.rawContent;
         });
-        widget.onScan(scanResult); // Pass the result back
-        await _showDetailsDialog(scanResult); // Show details in dialog
+        widget.onScan(scanResult.rawContent); // Pass the result back
+        await _showDetailsDialog(scanResult.rawContent); // Show details in dialog
       }
     } catch (e) {
       setState(() {
@@ -39,8 +39,8 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
   }
 
   Future<void> _showDetailsDialog(String scanResult) async {
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    final docRef = _firestore.collection('users').doc(scanResult);
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final docRef = firestore.collection('users').doc(scanResult);
 
     final docSnapshot = await docRef.get();
 
@@ -48,8 +48,8 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
       final userData = docSnapshot.data();
 
       // Check if the QR code was scanned within the last 2 hours
-      final twoHoursAgo = DateTime.now().subtract(Duration(hours: 2));
-      final querySnapshot = await _firestore
+      final twoHoursAgo = DateTime.now().subtract(const Duration(hours: 2));
+      final querySnapshot = await firestore
           .collection('food_distributions')
           .where('scan_code', isEqualTo: scanResult)
           .where('timestamp', isGreaterThan: Timestamp.fromDate(twoHoursAgo))
@@ -60,7 +60,7 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
       if (querySnapshot.docs.isNotEmpty) {
         // If there's a record within the last 2 hours, show a message
         final lastScanTimestamp = querySnapshot.docs.first['timestamp'].toDate();
-        final nextAllowedTime = lastScanTimestamp.add(Duration(hours: 2));
+        final nextAllowedTime = lastScanTimestamp.add(const Duration(hours: 2));
         final formattedLastScan = DateFormat(' hh:mm a').format(lastScanTimestamp);
         final formattedNextAllowedTime = DateFormat(' hh:mm a').format(nextAllowedTime);
 
@@ -72,10 +72,10 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('This user has already provided food within the last 2 hours.'),
-                  SizedBox(height: 10),
+                  const Text('This user has already provided food within the last 2 hours.'),
+                  const SizedBox(height: 10),
                   Text('Last scan time: $formattedLastScan'),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text('Next allowed time: $formattedNextAllowedTime'),
                 ],
               ),
@@ -119,7 +119,7 @@ class _MyCustomWidgetState extends State<MyCustomWidget> {
         );
 
         // Store details in Firestore
-        await _firestore.collection('food_distributions').add({
+        await firestore.collection('food_distributions').add({
           'scan_code': scanResult,
           'name': userData?['name'] ?? 'N/A',
           'email': userData?['email'] ?? 'N/A',

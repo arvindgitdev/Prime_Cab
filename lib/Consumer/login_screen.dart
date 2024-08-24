@@ -86,7 +86,7 @@ class _MyPhoneState extends State<MyPhone> {
         );
       } else {
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => HomePage()),
+          MaterialPageRoute(builder: (context) => const HomePage()),
               (route) => false,
         );
       }
