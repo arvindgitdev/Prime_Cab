@@ -1,4 +1,4 @@
-package com.example.primecabs
+package com.example.PrimeServices
 
 import io.flutter.embedding.android.FlutterActivity
 

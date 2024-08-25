@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:primecabs/Driver/ride_detail.dart';
+import 'package:PrimeServices/Driver/ride_detail.dart';
  // Import the RideDetailsPage
 
 class RideRequestsPage extends StatelessWidget {

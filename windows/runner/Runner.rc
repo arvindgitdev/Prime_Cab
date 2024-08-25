@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "primecabs" "\0"
+            VALUE "FileDescription", "PrimeServices" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "primecabs" "\0"
+            VALUE "InternalName", "PrimeServices" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "primecabs.exe" "\0"
-            VALUE "ProductName", "primecabs" "\0"
+            VALUE "OriginalFilename", "PrimeServices.exe" "\0"
+            VALUE "ProductName", "PrimeServices" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

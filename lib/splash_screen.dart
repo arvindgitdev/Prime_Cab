@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:primecabs/Consumer/navigation.dart';
-import 'package:primecabs/Driver/driver_home.dart';
-import 'package:primecabs/food_vendor/v_nav.dart';
+import 'package:PrimeServices/Consumer/navigation.dart';
+import 'package:PrimeServices/Driver/driver_home.dart';
+import 'package:PrimeServices/food_vendor/v_nav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_page.dart';
 

@@ -7,6 +7,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:917975444880:android:17d28dc6f4301429519715",
+        "android_client_info": {
+          "package_name": "com.example.PrimeServices"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917975444880-ljq1s78vud78mgrg7obkcun83i31i724.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0-QOIOAm2KaPoncjEAvlZDmP8a4OkVjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917975444880-ljq1s78vud78mgrg7obkcun83i31i724.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "917975444880-9fpcq2id8pfm3grj4an8jtqn4hvkmnr0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.primeservices"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:917975444880:android:c24c55ba0068ea42519715",
         "android_client_info": {
           "package_name": "com.example.primecabs"

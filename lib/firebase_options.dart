@@ -52,7 +52,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyD0-QOIOAm2KaPoncjEAvlZDmP8a4OkVjY',
-    appId: '1:917975444880:android:c24c55ba0068ea42519715',
+    appId: '1:917975444880:android:17d28dc6f4301429519715',
     messagingSenderId: '917975444880',
     projectId: 'primecabs-eb17a',
     storageBucket: 'primecabs-eb17a.appspot.com',
@@ -60,24 +60,24 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCLv4LpQQFo1XCwakWGU2wZ3_zK92HWsSo',
-    appId: '1:917975444880:ios:fa72ac7dbe5b7be3519715',
+    appId: '1:917975444880:ios:55a5025df47e7bf8519715',
     messagingSenderId: '917975444880',
     projectId: 'primecabs-eb17a',
     storageBucket: 'primecabs-eb17a.appspot.com',
     androidClientId: '917975444880-dh7i988dciv3mfnq2pgpriro5d0jh72g.apps.googleusercontent.com',
-    iosClientId: '917975444880-q6ptpn961nsslua64hvqmnvvmn2vefg0.apps.googleusercontent.com',
-    iosBundleId: 'com.example.primecabs',
+    iosClientId: '917975444880-tohumaco3qb5dveqvuisnq0k6prp4bn7.apps.googleusercontent.com',
+    iosBundleId: 'com.example.PrimeServices',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyCLv4LpQQFo1XCwakWGU2wZ3_zK92HWsSo',
-    appId: '1:917975444880:ios:fa72ac7dbe5b7be3519715',
+    appId: '1:917975444880:ios:55a5025df47e7bf8519715',
     messagingSenderId: '917975444880',
     projectId: 'primecabs-eb17a',
     storageBucket: 'primecabs-eb17a.appspot.com',
     androidClientId: '917975444880-dh7i988dciv3mfnq2pgpriro5d0jh72g.apps.googleusercontent.com',
-    iosClientId: '917975444880-q6ptpn961nsslua64hvqmnvvmn2vefg0.apps.googleusercontent.com',
-    iosBundleId: 'com.example.primecabs',
+    iosClientId: '917975444880-tohumaco3qb5dveqvuisnq0k6prp4bn7.apps.googleusercontent.com',
+    iosBundleId: 'com.example.PrimeServices',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:primecabs/food_vendor/v_nav.dart';
-import 'package:primecabs/food_vendor/ven_detail.dart';
-import 'package:primecabs/provider/auth_provider.dart' as customAuthProvider;
+import 'package:PrimeServices/food_vendor/v_nav.dart';
+import 'package:PrimeServices/food_vendor/ven_detail.dart';
+import 'package:PrimeServices/provider/auth_provider.dart' as customAuthProvider;
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Vlogin extends StatefulWidget {

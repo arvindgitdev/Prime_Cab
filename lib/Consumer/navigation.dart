@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:primecabs/Consumer/cabpage.dart';
-import 'package:primecabs/Consumer/food.dart';
-import 'package:primecabs/Consumer/profile%20_page.dart';
+import 'package:PrimeServices/Consumer/cabpage.dart';
+import 'package:PrimeServices/Consumer/food.dart';
+import 'package:PrimeServices/Consumer/profile%20_page.dart';
 
 
 class HomePage extends StatefulWidget {

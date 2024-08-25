@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-import 'package:primecabs/food_vendor/fv_home.dart';
-import 'package:primecabs/food_vendor/daily_record_page.dart';
-import 'package:primecabs/food_vendor/ven_profile.dart';
+import 'package:PrimeServices/food_vendor/fv_home.dart';
+import 'package:PrimeServices/food_vendor/daily_record_page.dart';
+import 'package:PrimeServices/food_vendor/ven_profile.dart';
 
 
 class VendorHome extends StatefulWidget {

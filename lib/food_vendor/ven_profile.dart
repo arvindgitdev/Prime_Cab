@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:primecabs/login_page.dart'; // Adjust this import according to your app's structure
+import 'package:PrimeServices/login_page.dart'; // Adjust this import according to your app's structure
 import 'package:provider/provider.dart';
-import 'package:primecabs/provider/auth_provider.dart' as custom_auth_provider; // Import your AuthProvider
+import 'package:PrimeServices/provider/auth_provider.dart' as custom_auth_provider; // Import your AuthProvider
 
 class SupplierProfilePage extends StatefulWidget {
   const SupplierProfilePage({super.key});

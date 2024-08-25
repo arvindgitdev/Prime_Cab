@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:primecabs/Driver/driver_reg.dart';
-import 'package:primecabs/Driver/driver_home.dart'; // Import the Driver Home Page
+import 'package:PrimeServices/Driver/driver_reg.dart';
+import 'package:PrimeServices/Driver/driver_home.dart'; // Import the Driver Home Page
 
 class DLoginPage extends StatefulWidget {
   const DLoginPage({super.key});

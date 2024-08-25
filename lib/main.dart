@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:primecabs/firebase_options.dart';
-import 'package:primecabs/provider/auth_provider.dart';
-import 'package:primecabs/splash_screen.dart';
-import 'package:primecabs/utility/utility.dart';
+import 'package:PrimeServices/firebase_options.dart';
+import 'package:PrimeServices/provider/auth_provider.dart';
+import 'package:PrimeServices/splash_screen.dart';
+import 'package:PrimeServices/utility/utility.dart';
 import 'package:provider/provider.dart';  // Import for Provider
 import 'dart:io';  // Import for platform-specific code
 

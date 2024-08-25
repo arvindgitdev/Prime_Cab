@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:primecabs/Consumer/navigation.dart';
-import 'package:primecabs/Consumer/user_info.dart';
-import 'package:primecabs/provider/auth_provider.dart' as customAuthProvider;
+import 'package:PrimeServices/Consumer/navigation.dart';
+import 'package:PrimeServices/Consumer/user_info.dart';
+import 'package:PrimeServices/provider/auth_provider.dart' as customAuthProvider;
 
 class MyPhone extends StatefulWidget {
   const MyPhone({super.key});

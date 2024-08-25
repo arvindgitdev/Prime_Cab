@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:primecabs/Consumer/login_screen.dart';
-import 'package:primecabs/Driver/driver_login.dart';
-import 'package:primecabs/food_vendor/login.dart';
+import 'package:PrimeServices/Consumer/login_screen.dart';
+import 'package:PrimeServices/Driver/driver_login.dart';
+import 'package:PrimeServices/food_vendor/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatelessWidget {

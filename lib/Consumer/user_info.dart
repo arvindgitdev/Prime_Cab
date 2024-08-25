@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:primecabs/Consumer/navigation.dart'; // Ensure this import is correct
+import 'package:PrimeServices/Consumer/navigation.dart'; // Ensure this import is correct
 
 class UserInfoPage extends StatefulWidget {
   final User? user;

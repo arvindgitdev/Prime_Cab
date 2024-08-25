@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:primecabs/Driver/accept_page.dart';
-import 'package:primecabs/Driver/ride_detail.dart';
+import 'package:PrimeServices/Driver/accept_page.dart';
+import 'package:PrimeServices/Driver/ride_detail.dart';
 
 class DriverHomePage extends StatefulWidget {
   const DriverHomePage({super.key});
