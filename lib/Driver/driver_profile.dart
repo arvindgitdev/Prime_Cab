@@ -1,117 +1,95 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+import 'package:PrimeServices/provider/auth_provider.dart' as custom_auth_provider; // Import your AuthProvider
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  String? _name;
+  String? _email;
+  String? _phone;
+  String? _profilePictureUrl;
+  bool _loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSupplierData();
+  }
+
+  Future<void> _loadSupplierData() async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      try {
+        final docSnapshot = await _firestore.collection('drivers').doc(user.uid).get();
+        if (docSnapshot.exists) {
+          final data = docSnapshot.data();
+          setState(() {
+            _name = data?['name'];
+            _email = data?['email'];
+            _phone = data?['phone'];
+            _profilePictureUrl = data?['profile_picture'];
+            _loading = false;
+          });
+        }
+      } catch (e) {
+        setState(() {
+          _loading = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Failed to load supplier data: ${e.toString()}')));
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text('driver'),
         actions: [
-          TextButton(
-            onPressed: () {
-              // Handle save action
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              Provider.of<custom_auth_provider.AuthProvider>(context, listen: false).signOut(context);
+             // Navigate to the login page
             },
-            child: const Text(
-              'Save',
-              style: TextStyle(
-                color: Colors.blue,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+      body: _loading
+          ? const Center(child: CircularProgressIndicator())
+          : Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Stack(
-                children: [
-                  Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.grey[300]!,
-                        width: 4,
-                      ),
-                    ),
-                    child: CircleAvatar(
-                      radius: 60,
-                      backgroundColor: Colors.grey[300],
-                      backgroundImage: const AssetImage('assets/default_profile.jpg'),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.blue,
-                      ),
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.camera_alt,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          // Handle change profile picture
-                        },
-                      ),
-                    ),
-                  ),
-                ],
+              child: CircleAvatar(
+                radius: 50,
+                backgroundImage: _profilePictureUrl != null
+                    ? NetworkImage(_profilePictureUrl!)
+                    : null,
+                child: _profilePictureUrl == null
+                    ? const Icon(Icons.person, size: 50, color: Colors.grey)
+                    : null,
               ),
             ),
             const SizedBox(height: 20),
-            TextFormField(
-              initialValue: 'Name',
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                border: OutlineInputBorder(),
-              ),
-              style: const TextStyle(fontSize: 16),
-              // onChanged: (value) {}, // Handle username change
-            ),
-            const SizedBox(height: 12),
-            TextFormField(
-              initialValue: 'Phone',
-              decoration: const InputDecoration(
-                labelText: 'phone',
-                border: OutlineInputBorder(),
-              ),
-              style: const TextStyle(fontSize: 16),
-              // onChanged: (value) {}, // Handle name change
-            ),
-
-            const SizedBox(height: 12),
-            TextFormField(
-              initialValue: 'Email',
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-              ),
-              style: const TextStyle(fontSize: 16),
-              // onChanged: (value) {}, // Handle website change
-            ),
-            const SizedBox(height: 12),
-            TextFormField(
-              initialValue: 'Car Detials',
-              maxLines: 3,
-              decoration: const InputDecoration(
-                labelText: 'Car Details',
-                border: OutlineInputBorder(),
-              ),
-              style: const TextStyle(fontSize: 16),
-              // onChanged: (value) {}, // Handle bio change
-            ),
+            Text('Name: ${_name ?? 'N/A'}', style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 10),
+            Text('Email: ${_email ?? 'N/A'}', style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 10),
+            Text('Phone: ${_phone ?? 'N/A'}', style: const TextStyle(fontSize: 18)),
           ],
         ),
       ),

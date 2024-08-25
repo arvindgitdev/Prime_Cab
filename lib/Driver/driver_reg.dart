@@ -1,10 +1,10 @@
 import 'dart:io';
+import 'package:PrimeServices/Driver/driver_nav.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:PrimeServices/Driver/driver_home.dart';
 
 class DriverRegistrationPage extends StatefulWidget {
   const DriverRegistrationPage({super.key});
@@ -91,9 +91,9 @@ class _DriverRegistrationPageState extends State<DriverRegistrationPage> {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the success dialog
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const DriverHomePage()), // Replace with your actual home page
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const DriverHome()),
+                      (route) => false,
                 );
               },
               child: const Text('OK'),

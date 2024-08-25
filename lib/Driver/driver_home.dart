@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:PrimeServices/Driver/accept_page.dart';
 import 'package:PrimeServices/Driver/ride_detail.dart';
 
 class DriverHomePage extends StatefulWidget {
@@ -52,7 +51,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
       appBar: AppBar(
         title: const Text('Driver Home'),
         centerTitle: false,
-        actions: [
+       /* actions: [
           IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {
@@ -62,7 +61,7 @@ class _DriverHomePageState extends State<DriverHomePage> {
               );
             },
           ),
-        ],
+        ],*/
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

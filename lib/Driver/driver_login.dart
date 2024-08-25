@@ -1,7 +1,7 @@
+import 'package:PrimeServices/Driver/driver_nav.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:PrimeServices/Driver/driver_reg.dart';
-import 'package:PrimeServices/Driver/driver_home.dart'; // Import the Driver Home Page
 
 class DLoginPage extends StatefulWidget {
   const DLoginPage({super.key});
@@ -44,7 +44,7 @@ class _DLoginPageState extends State<DLoginPage> {
 
         // Navigate to the Driver Home Page
         Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const DriverHomePage()),
+          MaterialPageRoute(builder: (context) => const DriverHome()),
               (route) => false,
         );
       }

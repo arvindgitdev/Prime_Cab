@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:PrimeServices/firebase_options.dart';
 import 'package:PrimeServices/provider/auth_provider.dart';
 import 'package:PrimeServices/splash_screen.dart';
-import 'package:PrimeServices/utility/utility.dart';
-import 'package:provider/provider.dart';  // Import for Provider
-import 'dart:io';  // Import for platform-specific code
+import 'package:PrimeServices/Consumer/login_screen.dart';
+import 'package:PrimeServices/Driver/driver_login.dart';
+import 'package:PrimeServices/food_vendor/login.dart';
+import 'package:PrimeServices/login_page.dart';
+import 'package:provider/provider.dart';
+import 'dart:io';
+
+import 'utility/utility.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,7 +18,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  platformSpecificInit();  // Optional platform-specific initialization
+  platformSpecificInit();
 
   runApp(const MyApp());
 }
@@ -33,19 +38,28 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),  // AuthProvider added here
-        // Add other providers as needed
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
-      child: LayoutBuilder(  // Use LayoutBuilder to get the constraints
+      child: LayoutBuilder(
         builder: (context, constraints) {
-          SizeConfig.init(context);  // Initialize SizeConfig
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Prime Cab',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
-            ),
-            home: const SplashScreen(),
+          SizeConfig.init(context);
+          return Consumer<AuthProvider>(
+            builder: (context, authProvider, _) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Prime Cab',
+                theme: ThemeData(
+                  colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
+                ),
+                home: const SplashScreen(),
+                routes: {
+                  '/login': (context) => const LoginPage(),
+                  '/driver': (context) => const DLoginPage(),
+                  '/consumer': (context) => const MyPhone(),
+                  '/vendor': (context) => const Vlogin(),
+                },
+              );
+            },
           );
         },
       ),

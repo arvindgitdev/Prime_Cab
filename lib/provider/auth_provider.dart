@@ -1,6 +1,8 @@
+import 'package:PrimeServices/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 class AuthProvider with ChangeNotifier {
@@ -95,10 +97,17 @@ class AuthProvider with ChangeNotifier {
   }
 
   // Sign out
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userType'); // Clear the user type from SharedPreferences
+
     await _firebaseAuth.signOut();
     await _googleSignIn.signOut();
     _user = null;
     notifyListeners();
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
   }
 }

@@ -1,6 +1,6 @@
+import 'package:PrimeServices/Driver/driver_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:PrimeServices/Consumer/navigation.dart';
-import 'package:PrimeServices/Driver/driver_home.dart';
 import 'package:PrimeServices/food_vendor/v_nav.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'login_page.dart';
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
     if (userType == 'Driver') {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const DriverHomePage()),  // Navigate to Driver home screen
+        MaterialPageRoute(builder: (context) => const DriverHome()),  // Navigate to Driver home screen
       );
     } else if (userType == 'Consumer') {
       Navigator.pushReplacement(

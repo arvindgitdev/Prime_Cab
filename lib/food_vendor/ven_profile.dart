@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:PrimeServices/login_page.dart'; // Adjust this import according to your app's structure
 import 'package:provider/provider.dart';
 import 'package:PrimeServices/provider/auth_provider.dart' as custom_auth_provider; // Import your AuthProvider
 
@@ -53,7 +52,6 @@ class _SupplierProfilePageState extends State<SupplierProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<custom_auth_provider.AuthProvider>(context); // Access AuthProvider
 
     return Scaffold(
       appBar: AppBar(
@@ -62,11 +60,7 @@ class _SupplierProfilePageState extends State<SupplierProfilePage> {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
-              await authProvider.signOut(); // Call sign-out method from AuthProvider
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-                    (route) => false,
-              ); // Navigate to the login page
+              Provider.of<custom_auth_provider.AuthProvider>(context, listen: false).signOut(context);
             },
           ),
         ],
